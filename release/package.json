@@ -1,0 +1,13 @@
+{
+  "name": "logseq-plugin-test",
+  "version": "0.0.1",
+  "description": "haha",
+  "author": "sansui233",
+  "license": "MIT",
+  "logseq": {
+    "id": "logseq-plugin-test",
+    "title": "logseq-plugin-test",
+    "main": "./index.html",
+    "icon": "./logo.png"
+  }
+}
