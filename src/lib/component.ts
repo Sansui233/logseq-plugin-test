@@ -26,13 +26,13 @@ export function renderNode<
 /**
  * generate data-ref=something
  * 
- * Usage
- * generateBinds(datas, {
- *  renderId: "as0psf7ov",
- *  slotId: "slot__0as9d"
- * })
+ * Usage  
+ * generateBinds(datas, {  
+ *  renderId: "as0psf7ov",  
+ *  slotId: "slot__0as9d"  
+ * })  
  */
-export const generateBinds = <
+export const renderBinds = <
   F extends CallbackNames = CallbackNames,
   D extends DataProperties = DataProperties
 >(

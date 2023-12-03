@@ -1,6 +1,6 @@
 import '@logseq/libs'
 import { tableRenderer } from './logseq/info'
-import { model } from './logseq/model'
+import { model } from './logseq/handlers'
 import { onMacroRendererSlotted } from './logseq/render'
 import { style } from './logseq/style'
 

@@ -4,8 +4,7 @@ import { createRenderer } from "../lib/renderer";
 // register all the injected variables here
 
 export type SlotData = {
-  startTime?: string
-  durationMins?: string
+  content?: string
 }
 
 export const tableRenderer = createRenderer<SlotData>({
@@ -13,11 +12,12 @@ export const tableRenderer = createRenderer<SlotData>({
 })
 
 // variable Name: dom property string
+// event handler support see https://github.com/logseq/logseq/blob/master/libs/src/helpers.ts#L422-L451
 export const dataProterties = {
-  renderId: "data-render-id",
-  slotId: "data-slot-id",
-  blockUuid: "data-block-uuid",
-  onClick: 'data-on-click'
+  renderId: 'data-render-id',
+  blockUuid: 'data-block-uuid',
+  onInput: 'data-on-input',
+  onFocusOut: 'data-on-focusout',
 } as const
 
 // data type fetch from logseq event.dataset
@@ -27,5 +27,6 @@ export type NodeData = {
 
 // method name: dom property string
 export const modelHandlers = {
-  startPomoTimer: "startPomoTimer"
+  handleInput: "handleInput",
+  handleFocusOut: "handleFocusOut"
 } as const
