@@ -1,12 +1,10 @@
-import { dataNames, modelHandlers, tableRenderer } from "./info";
+import Timer from "../components/Timer";
+import { myRenderNode } from "../components/my-type";
+import { tableRenderer } from "./info";
 
-type StartHook = Parameters<typeof logseq.App.onMacroRendererSlotted>[0]
+type RenderedSlottedHook = Parameters<typeof logseq.App.onMacroRendererSlotted>[0]
 
-/**
- * @param evt 
- * @returns 
- */
-export const onMacroRendererSlotted: StartHook = (evt) => {
+export const onMacroRendererSlotted: RenderedSlottedHook = (evt) => {
   const { slot, payload } = evt
   const [rendererName, startTime, durationMins] = payload.arguments // see SlotData
   console.debug("onMacroRendererSlotted event", evt)
@@ -25,19 +23,13 @@ export const onMacroRendererSlotted: StartHook = (evt) => {
     return logseq.provideUI({
       key: tableId, // this is part of the dom id. see keepKey
       slot, reset: true,
-      template: `
-        <button
-        class="pomodoro-timer-btn is-start"
-        ${dataNames.slotId}="${slot}" 
-        ${dataNames.renderId}="${renderId}"
-        ${dataNames.blockUuid}="${payload.uuid}"
-        ${dataNames.onClick}="${modelHandlers.startPomoTimer}">
-        🍅 START
-        </button>
-      `,
+      template: myRenderNode(Timer, {
+        slotId: slot,
+        renderId,
+        blockUuid: payload.uuid
+      })
     })
   }
-
   // reset slot ui
   renderTimer({
     tableId: tableId,
@@ -103,7 +95,6 @@ export function renderTimer({
 
   _render(true)
 }
-
 
 const toNumber = (s: string) => {
   const num = parseInt(s)

@@ -19,7 +19,7 @@ export const model: ModelCallbacks<typeof modelHandlers, NodeData> = {
     if (!newContent) return
 
     await logseq.Editor.updateBlock(blockUuid, newContent)
-    renderTimer({ tableId: renderId, slotId, startTime })
+    renderTimer({ tableId: renderId, slotId, startTime }) //这个 id 怎么还一会儿有 name 一会儿没有的
   },
 }
 

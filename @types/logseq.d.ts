@@ -2,7 +2,7 @@ import '@logseq/libs'
 
 declare module '@logseq/libs' {
   export type ModelCallbacks<
-    CallbackNames extends Record<string, unknown>,
+    CallbackNames extends Record<string, string>,
     NodeData extends Record<string, unknown>
   > = {
       [P in keyof CallbackNames]: (event: {
