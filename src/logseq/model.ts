@@ -7,6 +7,7 @@ export const model: ModelCallbacks<typeof modelHandlers, NodeData> = {
     // get plugin dom info
     console.debug("e on model hook:", evt)
     const { renderId, slotId, blockUuid } = evt.dataset
+    console.debug("[model.ts] renderId:", renderId)
 
     // get logseq block
     const block = await logseq.Editor.getBlock(blockUuid)
@@ -19,7 +20,7 @@ export const model: ModelCallbacks<typeof modelHandlers, NodeData> = {
     if (!newContent) return
 
     await logseq.Editor.updateBlock(blockUuid, newContent)
-    renderTimer({ tableId: renderId, slotId, startTime }) //这个 id 怎么还一会儿有 name 一会儿没有的
+    renderTimer({ renderId: renderId, slotId, startTime })
   },
 }
 

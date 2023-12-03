@@ -13,7 +13,7 @@ export const onMacroRendererSlotted: RenderedSlottedHook = (evt) => {
 
   const renderId = rendererName.split('_')[1]?.trim()
   if (!renderId) return
-  const tableId = tableRenderer.name + '_' + renderId
+  const tableId = tableRenderer.genId(renderId)
 
   if (!startTime?.trim()) {
 
@@ -30,9 +30,10 @@ export const onMacroRendererSlotted: RenderedSlottedHook = (evt) => {
       })
     })
   }
+  console.debug("[render.ts] tableId:", tableId)
   // reset slot ui
   renderTimer({
-    tableId: tableId,
+    renderId,
     slotId: slot,
     startTime: toNumber(startTime),
     durationMins: durationMins ? toNumber(durationMins) : undefined
@@ -40,10 +41,10 @@ export const onMacroRendererSlotted: RenderedSlottedHook = (evt) => {
 }
 
 export function renderTimer({
-  tableId, slotId,
+  renderId, slotId,
   startTime, durationMins,
 }: {
-  tableId: string,
+  renderId: string,
   slotId: string,
   startTime: number,
   durationMins?: number,
@@ -52,7 +53,7 @@ export function renderTimer({
   if (!startTime) return
   const durationTime = (durationMins || 25) * 60 // default 20 minus
 
-  const keepKey = `${logseq.baseInfo.id}--${tableId}` // important this is the dom id
+  const keepKey = tableRenderer.genDomId(renderId) // important this is the dom id
   const keepOrNot = () => logseq.App.queryElementById(keepKey)
 
   function _render(init: boolean) {
@@ -67,7 +68,7 @@ export function renderTimer({
         secs}`
     }
     const provideUi = () => logseq.provideUI({
-      key: tableId,
+      key: tableRenderer.genId(renderId),
       slot: slotId,
       reset: true,
       template: `

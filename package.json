@@ -28,7 +28,7 @@
   "logseq": {
     "id": "logseq-plugin-test",
     "title": "logseq-plugin-test",
-    "main": "release/index.html",
+    "main": "dist/index.html",
     "icon": "./logo.png"
   }
 }

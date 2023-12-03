@@ -14,8 +14,13 @@ export const createRenderer = <Opt extends Record<string, unknown>>(conf: Config
     return "{{renderer :" + conf.name + nameSuffix + payload + "}}"
   }
 
+  const genId = (renderId: string) => conf.name + "_" + renderId
+  const genDomId = (renderId: string) => `${logseq.baseInfo.id}--${conf.name}_${renderId}`
+
   return {
     name: conf.name,
-    slotText
+    slotText,
+    genId,
+    genDomId
   }
 }
