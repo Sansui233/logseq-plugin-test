@@ -1,8 +1,8 @@
 {
   "name": "logseq-plugin-test",
   "version": "0.0.1",
-  "description": "A joyful translator for block text",
-  "author": "©Charlie",
+  "description": "erodame!",
+  "author": "sansui233",
   "license": "MIT",
   "scripts": {
     "dev": "npx vite",
