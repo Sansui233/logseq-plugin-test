@@ -16,7 +16,7 @@ In brief:
 In detail: 
 
 - register all the data-ref and callback names in `logseq/info.ts`
-- bind data-ref and rendering method for this plugin in `components/my-type.ts`
+- bind data-ref and method names for this plugin in `components/my-type.ts`
 - write components rendering method, and do data binding. see `components/TextInput/index.ts`. event handlers are defined outside in `logseq/handlers.ts`
 - render components with html template, where all possible slots are defined in `lib/components.ts` renderTemplate method.
 - inject ui into logseq with logseq API ProvideUI in `logseq/render.ts`

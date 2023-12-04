@@ -1,7 +1,7 @@
 import { ModelCallbacks } from "@logseq/libs"
-import { NodeData, modelHandlers, tableRenderer } from "./info"
+import { NodeData, tableRenderer } from "./info"
 
-export const model: ModelCallbacks<typeof modelHandlers, NodeData> = {
+export const model: ModelCallbacks<"handleInput" | "handleFocusOut", NodeData> = {
   handleInput: async (evt) => {
     console.debug("handleInput", evt)
     // the way to get event.target
