@@ -1,26 +1,28 @@
-## A Translator Sample
+## Logseq data binding experiment - minimal live editing
 
-This is sample that show you how to use float ui container to display custom content.
+This is an experiment on data bindings on logseq plugin development. The example is about a minimal live editing.
 
-### Demo
+Mainly based on type inference of typescript.
 
-![demo](./demo.gif)
+![demo](./media/typehints-on-render-databinding.png)
 
-### API
+## Basic ideas
 
-[![npm version](https://badge.fury.io/js/%40logseq%2Flibs.svg)](https://badge.fury.io/js/%40logseq%2Flibs)
+In brief:
+- `logseq/handlers.ts`: dom event handlers
+- `components`: htmltemplate databinding with type constraint
+- `logseq/styles.ts`: one single css style
 
-##### Logseq.App
+In detail: 
 
-- `onInputSelectionEnd: IUserHook<{ caret: any; end: number; point: { x: number; y: number }; start: number; text: string }, IUserOffHook>`
+- register all the data-ref and callback names in `logseq/info.ts`
+- bind data-ref and rendering method for this plugin in `components/my-type.ts`
+- write components rendering method, and do data binding. see `components/TextInput/index.ts`. event handlers are defined outside in `logseq/handlers.ts`
+- render components with html template, where all possible slots are defined in `lib/components.ts` renderTemplate method.
+- inject ui into logseq with logseq API ProvideUI in `logseq/render.ts`
 
-### Running the Sample
+Editing live content poses challenges, particularly with auto-blur when updating blocks, hindering continuous editing. Additionally, the editablecontent attribute, sanitized by DOMPurify, limits this functionality to input elements, preventing insertion as flex-width inline elements.
 
-> 🏷 Minimal version of App [0.4.6](https://github.com/logseq/logseq/releases/tag/0.4.6) !
+## Why do this
 
-- `yarn && yarn build` in terminal to install dependencies.
-- `Load unpacked plugin` in Logseq Desktop client.
-
-### License
-
-MIT
+To organize and refactor component in a reliable way.
