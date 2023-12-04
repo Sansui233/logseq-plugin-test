@@ -1,3 +1,4 @@
+import Handlebars from "handlebars";
 import { $Values } from 'utility-types';
 
 type CallbackNames = Record<string, string>
@@ -22,30 +23,33 @@ export function renderNode<
   return component(props, { callbackNames, dataProperties })
 }
 
-
-/**
- * generate data-ref=something
- * 
- * Usage  
- * generateBinds(datas, {  
- *  renderId: "as0psf7ov",  
- *  slotId: "slot__0as9d"  
- * })  
- */
-export const renderBinds = <
+export function renderTemplate<
   F extends CallbackNames = CallbackNames,
   D extends DataProperties = DataProperties
->(
-  datas: {
-    callbackNames: F
-    dataProperties: D
-  },
-  maps: {
-    [K in keyof Partial<D>]: unknown | $Values<F>
-  },
-) => {
+>(datas: { callbackNames: F, dataProperties: D },
+  htmlTemplate: string,
+  slots: {
+    id?: string,
+    value?: string,
+    children?: string,
+    bindings?: { // TODO seperate value binding and handler binding to get a better type hints
+      [K in keyof Partial<D>]: unknown | $Values<F>
+    },
+  }): string {
+  const template = Handlebars.compile(htmlTemplate)
 
-  const arr = Object.keys(maps).map(k => `${datas.dataProperties[k]}="${maps[k]}"`)
-  return " " + arr.join(" ") + " "
+  // render data-ref
+  let bindingStr = ""
+  if (slots.bindings) {
+    const arr = Object.keys(slots.bindings).map(k => `${datas.dataProperties[k]}="${slots.bindings![k]}"`) // ts compiler bug here
+    bindingStr = " " + arr.join(" ") + " "
+  }
+
+  return template({
+    id: slots.id,
+    value: slots.value,
+    children: slots.children,
+    bindings: new Handlebars.SafeString(bindingStr),
+  })
 
 }
